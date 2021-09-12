@@ -36,22 +36,6 @@ export const ImgContainer = styled.div`
   }
 `
 
-// export const Button = styled.button`
-//   height: 30px;
-//   border-radius: 10px;
-//   border: none;
-//   background: ${({ theme }) => theme.dark};
-//   color: ${({ theme }) => theme.light};
-//   font-size: 18px;
-//   text-transform: uppercase;
-//   margin: 20px;
-//   transition: 0.3s ease-in-out;
-
-//   &:hover {
-//     color: ${({ theme }) => theme.contrastOrange};
-//   }
-// `
-
 export const Poster = styled.img`
   margin: 0 20px;
   width: 300px;

@@ -1,24 +1,12 @@
 import { combineReducers } from "redux"
 
 const initialState = {
-  // userInputMovie: "joy",
-  userInputMovie: "joy",
+  userInputMovie: "",
   moviesData: null,
   year: "",
   currentPage: 1,
   pages: null,
-  // ratings: [],
-  ratings: [
-    { imdbID: "tt2446980", rating: 5, genre: "Biography, Drama" },
-    { imdbID: "tt0206314", rating: 4, genre: "Action, Mystery, Thriller" },
-    { imdbID: "tt0107282", rating: 3, genre: "Drama" },
-    {
-      imdbID: "tt1140941",
-      rating: 2,
-      genre: "Crime, Horror, Romance, Thriller",
-    },
-    { imdbID: "tt0468526", rating: 1, genre: "Drama" },
-  ],
+  ratings: [],
   generes: ["none"],
 }
 
@@ -50,13 +38,6 @@ const store = (state = initialState, action) => {
       return state
   }
 }
-
-// const rating = (state = initialState, action) => {
-//   switch (action.type) {
-//     default:
-//       return state
-//   }
-// }
 
 const App = combineReducers({
   store,

@@ -1,33 +1,12 @@
-import {
-  MovieCardContainer,
-  MoviePoster,
-  Text,
-  MovieInfo,
-  RatingContainer,
-} from "./styles"
-import { useHistory } from "react-router-dom"
+import { MovieCardContainer, MoviePoster, Text, MovieInfo } from "./styles"
 
-import HoverRating from "../HoverRating/HoverRating"
-
-const MovieCard = ({ title, src, year, imdbID }) => {
-  const history = useHistory()
+const MovieCard = ({ onClick, title, src, year }) => {
   return (
     <MovieCardContainer>
-      <MoviePoster
-        src={src}
-        alt={title}
-        onClick={() => history.push(`/movie/${imdbID}`)}
-      />
+      <MoviePoster src={src} alt={title} onClick={onClick} />
       <MovieInfo>
         <Text>{title}</Text>
         <Text size={"24px"}>{year}</Text>
-        <RatingContainer>
-          Rating:{" "}
-          <HoverRating
-            imdbID={imdbID}
-            size={window.innerWidth <= 768 ? "small" : "large"}
-          />
-        </RatingContainer>
       </MovieInfo>
     </MovieCardContainer>
   )

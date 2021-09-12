@@ -4,6 +4,8 @@ import MovieCard from "../../Components/MovieCard/MovieCard"
 import Pagination from "@material-ui/lab/Pagination"
 import { CircularProgress } from "@material-ui/core"
 
+import { useHistory } from "react-router-dom"
+
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import {
@@ -25,6 +27,8 @@ const Search = () => {
   const year = useSelector((state) => state.store.year)
   const currentPage = useSelector((state) => state.store.currentPage)
   const pages = useSelector((state) => state.store.pages)
+
+  const history = useHistory()
 
   const API_KEY = "aab2bb61"
   const urlOfRequest = `http://www.omdbapi.com/?s=${userInputMovie}&apikey=${API_KEY}&page=${currentPage}&y=${year}&type=movie`
@@ -92,6 +96,7 @@ const Search = () => {
         moviesData.length > 0 &&
         moviesData.map((item) => (
           <MovieCard
+            onClick={() => history.push(`/movie/${item.imdbID}`)}
             key={item.imdbID}
             title={item.Title}
             src={item.Poster}

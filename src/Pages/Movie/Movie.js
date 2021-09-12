@@ -15,21 +15,21 @@ import {
   InfoTitle,
   InfoValue,
   ImgContainer,
-  Button,
+  // Button,
+  StyledLink,
 } from "./styles"
 import { RatingContainer } from "../../Components/MovieCard/styles"
 import HoverRating from "../../Components/HoverRating/HoverRating"
 import { useState, useEffect } from "react"
-import { useHistory } from "react-router-dom"
+// import { useHistory } from "react-router-dom"
 
 const Movie = () => {
   const { imdbID } = useParams()
   const [data, setData] = useState("")
-  const history = useHistory()
+  // const history = useHistory()
 
   const API_KEY = "aab2bb61"
   const urlOfRequest = `http://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`
-  console.log(imdbID)
 
   useEffect(() => {
     fetch(urlOfRequest)
@@ -51,7 +51,9 @@ const Movie = () => {
     <MovieContainer>
       <ImgContainer>
         <Poster src={data.Poster} />
-        <Button onClick={() => history.goBack()}>back to search</Button>
+
+        <StyledLink to={"/search"}>back to search</StyledLink>
+        {/* <Button onClick={() => history.goBack()}>back to search</Button> */}
         <RatingContainer>
           Rating:{" "}
           <HoverRating size={window.innerWidth <= 768 ? "small" : "large"} />

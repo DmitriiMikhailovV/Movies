@@ -1,5 +1,6 @@
 import styled from "styled-components/macro"
 import { device } from "../../MobileViewBreackpoints"
+import { Link } from "react-router-dom"
 
 export const MovieContainer = styled.div`
   display: flex;
@@ -22,21 +23,21 @@ export const ImgContainer = styled.div`
   justify-content: center;
 `
 
-export const Button = styled.button`
-  height: 30px;
-  border-radius: 10px;
-  border: none;
-  background: ${({ theme }) => theme.dark};
-  color: ${({ theme }) => theme.light};
-  font-size: 18px;
-  text-transform: uppercase;
-  margin: 20px;
-  transition: 0.3s ease-in-out;
+// export const Button = styled.button`
+//   height: 30px;
+//   border-radius: 10px;
+//   border: none;
+//   background: ${({ theme }) => theme.dark};
+//   color: ${({ theme }) => theme.light};
+//   font-size: 18px;
+//   text-transform: uppercase;
+//   margin: 20px;
+//   transition: 0.3s ease-in-out;
 
-  &:hover {
-    color: ${({ theme }) => theme.contrastOrange};
-  }
-`
+//   &:hover {
+//     color: ${({ theme }) => theme.contrastOrange};
+//   }
+// `
 
 export const Poster = styled.img`
   margin: 0 20px;
@@ -118,3 +119,22 @@ export const InfoTitle = styled.div`
 `
 
 export const InfoValue = styled.div``
+
+export const StyledLink = styled(Link)`
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  background: ${({ theme }) => theme.dark};
+  color: ${({ theme }) => theme.light};
+  font-size: 18px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  line-height: 30px;
+  margin: 20px;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: ${({ theme }) => theme.contrastOrange};
+  }
+`

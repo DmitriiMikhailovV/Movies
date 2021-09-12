@@ -1,7 +1,7 @@
 import GlobalStyles from "./GlobalStyles"
 import { ThemeProvider } from "styled-components"
 import { colors } from "./theme"
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import { useParams } from "react-router"
 
 import Header from "./Components/Header/Header"
@@ -14,6 +14,7 @@ const App = () => {
       <GlobalStyles />
       <BrowserRouter>
         <Route path="/">
+          <Redirect to="/search" />
           <Header />
         </Route>
         <Route path="/search">

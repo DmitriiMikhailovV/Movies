@@ -5,38 +5,33 @@ import Pagination from "@material-ui/lab/Pagination"
 import { CircularProgress } from "@material-ui/core"
 
 import { useState, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import {
+  setUserInputMovie,
+  setMoviesData,
+  setYear,
+  setCurrentPage,
+  setPages,
+} from "../../Redux/action"
 
 import { PageContainer, MoviesContainer, NotFound } from "./styles"
 
 const Search = () => {
-  const initializeUserInput = () => {
-    return JSON.parse(localStorage.getItem("userInput")) ?? ""
-  }
-
-  const initializeMovies = () => {
-    return JSON.parse(localStorage.getItem("movies")) ?? null
-  }
-
-  const initializeCurrentPage = () => {
-    return JSON.parse(localStorage.getItem("currentPage")) ?? 1
-  }
-
-  // const [movies, setMovies] = useState(null)
-  const [movies, setMovies] = useState(initializeMovies())
   const [loading, setLoading] = useState(false)
   const [isResponse, setIsResponse] = useState("")
-  const [currentPage, setCurrentPage] = useState(initializeCurrentPage())
-  const [pages, setPages] = useState(null)
-  const [userInput, setUserInput] = useState(initializeUserInput())
-  // const [userInput, setUserInput] = useState("")
-  const [year, setYear] = useState("")
+  const dispatch = useDispatch()
+  const userInputMovie = useSelector((state) => state.search.userInputMovie)
+  const moviesData = useSelector((state) => state.search.moviesData)
+  const year = useSelector((state) => state.search.year)
+  const currentPage = useSelector((state) => state.search.currentPage)
+  const pages = useSelector((state) => state.search.pages)
 
   const API_KEY = "aab2bb61"
-  const urlOfRequest = `http://www.omdbapi.com/?s=${userInput}&apikey=${API_KEY}&page=${currentPage}&y=${year}&type=movie`
+  const urlOfRequest = `http://www.omdbapi.com/?s=${userInputMovie}&apikey=${API_KEY}&page=${currentPage}&y=${year}&type=movie`
 
   const getMovie = (e) => {
     setLoading(true)
-    setMovies(null)
+    dispatch(setMoviesData(null))
     if (e) {
       e.preventDefault()
     }
@@ -51,7 +46,7 @@ const Search = () => {
           setIsResponse("false")
           setLoading(false)
         } else {
-          setMovies(data.Search)
+          dispatch(setMoviesData(data.Search))
           setLoading(false)
           setIsResponse("true")
         }
@@ -69,45 +64,33 @@ const Search = () => {
       .then((data) => {
         const amauntResultMovies = data.totalResults
         const amountPages = Math.ceil(Number(amauntResultMovies) / 10)
-        setPages(amountPages)
+        dispatch(setPages(amountPages))
       })
   }
 
   const handleChange = (e, value) => {
-    setCurrentPage(value)
+    dispatch(setCurrentPage(value))
   }
 
   useEffect(() => {
-    if (userInput.length !== 0) {
+    if (userInputMovie.length !== 0) {
       getMovie()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage])
 
   useEffect(() => {
-    localStorage.setItem("movies", JSON.stringify(movies))
-  }, [movies])
-
-  useEffect(() => {
-    localStorage.setItem("userInput", JSON.stringify(userInput))
-  }, [userInput])
-
-  useEffect(() => {
-    localStorage.setItem("currentPage", JSON.stringify(currentPage))
-  }, [currentPage])
-
-  useEffect(() => {
-    setPages(null)
-    setCurrentPage(1)
+    dispatch(setPages(null))
+    dispatch(setCurrentPage(1))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInput.length || initializeUserInput().length === 0])
+  }, [userInputMovie.length])
 
   const ConditionOfSearch = () => {
     if (isResponse === "true") {
       return (
-        movies !== null &&
-        movies.length > 0 &&
-        movies.map((item, index) => (
+        moviesData !== null &&
+        moviesData.length > 0 &&
+        moviesData.map((item, index) => (
           <MovieCard
             key={index}
             title={item.Title}
@@ -127,11 +110,11 @@ const Search = () => {
     <PageContainer>
       <MovieSearch
         onClick={(e) => getMovie(e)}
-        onChangeMovie={(e) => setUserInput(e.target.value)}
-        searchedMovie={userInput}
-        onChangeYear={(e) => setYear(e.target.value)}
+        onChangeMovie={(e) => dispatch(setUserInputMovie(e.target.value))}
+        searchedMovie={userInputMovie}
+        onChangeYear={(e) => dispatch(setYear(e.target.value))}
         searchedYear={year}
-        value={userInput}
+        value={userInputMovie}
       />
       {pages === null || isNaN(pages) ? (
         <></>
@@ -145,7 +128,6 @@ const Search = () => {
       )}
       <MoviesContainer>
         {loading === true ? <CircularProgress /> : ConditionOfSearch()}
-        {ConditionOfSearch()}
       </MoviesContainer>
     </PageContainer>
   )

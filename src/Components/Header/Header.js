@@ -11,11 +11,11 @@ const Header = () => {
   return (
     <HeaderContainer>
       <StyledLink to={"/search"}>
-        <Icon fontSize={"large"} />
+        <Icon fontSize={window.innerWidth <= 768 ? "small" : "large"} />
       </StyledLink>
       <TitleContainer>
         <Title>moovy</Title>
-        <Motto>search your fav</Motto>
+        <Motto>search your movie</Motto>
       </TitleContainer>
       <StyledLink to={"/rating"}>MY RATING</StyledLink>
     </HeaderContainer>

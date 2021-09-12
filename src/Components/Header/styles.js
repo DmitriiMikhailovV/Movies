@@ -17,6 +17,10 @@ export const HeaderContainer = styled.div`
   @media ${device.tablet} {
     height: 75px;
   }
+
+  @media ${device.mobileL} {
+    border-radius: 0;
+  }
 `
 
 export const TitleContainer = styled.div`
@@ -41,11 +45,16 @@ export const Motto = styled.h3`
   font-size: 16px;
   font-weight: 500;
   color: ${({ theme }) => theme.contrastOrange};
+
+  @media ${device.tablet} {
+    font-size: 12px;
+  }
 `
 
 export const StyledLink = styled(Link)`
   text-align: center;
   text-decoration: none;
+  font-size: 16px;
   color: ${({ theme }) => theme.light};
   width: 70px;
   margin: 0 20px;
@@ -58,9 +67,12 @@ export const StyledLink = styled(Link)`
     4px 4px 6px 0 rgba(116, 125, 136, 0.2),
     inset 4px 4px 6px 0 rgba(255, 255, 255, 0.2),
     inset -4px -4px 6px 0 rgba(0, 0, 0, 0.2);
-  &:hover {
-    transition: background-color 0.3s ease-in-out;
-    background-color: ${({ theme }) => theme.contrastGreen};
+
+  @media (hover: hover) {
+    &:hover {
+      transition: background-color 0.3s ease-in-out;
+      background-color: ${({ theme }) => theme.contrastGreen};
+    }
   }
 
   &:active {
@@ -69,6 +81,12 @@ export const StyledLink = styled(Link)`
       -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
       inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
       inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  @media ${device.tablet} {
+    width: 52px;
+    margin: 0 15px;
+    font-size: 11px;
   }
 `
 

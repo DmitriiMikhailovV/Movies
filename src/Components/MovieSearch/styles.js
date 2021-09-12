@@ -18,6 +18,13 @@ export const SearchContainer = styled.div`
     width: 375px;
     height: 165px;
   }
+
+  @media ${device.mobileL} {
+    width: 100%;
+    height: ${(props) => (props.pages ? "calc(100vh - 75px)" : "165px")};
+    border-radius: 0px;
+    margin: ${(props) => (props.pages ? "0" : "0 0 15px 0")};
+  }
 `
 
 export const StyledForm = styled.form`
@@ -47,22 +54,26 @@ export const InputContainer = styled.div`
     inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
   transition: all 0.8s ease-in-out;
 
-  &:hover {
-    width: 400px;
-    background: ${({ theme }) => theme.light};
+  @media (hover: hover) {
+    &:hover {
+      width: 400px;
+      background: ${({ theme }) => theme.light};
+    }
   }
 
   @media ${device.tablet} {
+    background: ${({ theme }) => theme.light};
     height: 22px;
+    width: 300px;
     border-radius: 22px;
     padding: 7px 15px;
     margin: 7px 0;
-    width: ${(props) => (props.condition === 1 ? "300px" : "0px")};
     transition: all 0.2s ease-in-out;
+  }
 
-    &:hover {
-      width: 300px;
-    }
+  @media ${device.mobileS} {
+    width: 200px;
+    padding: 7px 25px;
   }
 `
 
@@ -74,12 +85,15 @@ export const Icon = styled(SearchIcon)`
   font-size: large;
   transition: 0.1s ease-in-out;
 
-  ${InputContainer}:hover & {
-    color: ${({ theme }) => theme.contrastOrange};
+  @media (hover: hover) {
+    ${InputContainer}:hover & {
+      color: ${({ theme }) => theme.contrastOrange};
+    }
   }
 
   @media ${device.tablet} {
     transition: 0.2s ease-in-out;
+    color: ${({ theme }) => theme.contrastOrange};
   }
 `
 
@@ -104,6 +118,7 @@ export const Input = styled.input`
 
   @media ${device.tablet} {
     font-weight: 600;
+    width: 400px;
     font-size: 18px;
     height: 75px;
     transition: 0.2s ease-in-out;
@@ -131,9 +146,11 @@ export const Submit = styled.button`
   transition: background-color 0.3s ease-in-out;
   transition: box-shadow 0.1s ease-in-out;
 
-  &:hover {
-    transition: background-color 0.3s ease-in-out;
-    background-color: ${({ theme }) => theme.contrastGreen};
+  @media (hover: hover) {
+    &:hover {
+      transition: background-color 0.3s ease-in-out;
+      background-color: ${({ theme }) => theme.contrastGreen};
+    }
   }
 
   &:active {
@@ -159,9 +176,11 @@ export const YearContainer = styled(InputContainer)`
   width: 80px;
   padding: 10px 20px;
 
-  &:hover {
-    width: 80px;
-    background: ${({ theme }) => theme.light};
+  @media (hover: hover) {
+    &:hover {
+      width: 80px;
+      background: ${({ theme }) => theme.light};
+    }
   }
 
   @media ${device.tablet} {
@@ -177,8 +196,10 @@ export const YearContainer = styled(InputContainer)`
 export const InputYear = styled(Input)`
   width: 80px;
 
-  ${YearContainer}:hover & {
-    width: 80px;
+  @media (hover: hover) {
+    ${YearContainer}:hover & {
+      width: 80px;
+    }
   }
 
   @media ${device.tablet} {
@@ -187,5 +208,27 @@ export const InputYear = styled(Input)`
     ${YearContainer}:hover & {
       width: 60px;
     }
+  }
+`
+
+export const NotFound = styled.div`
+  display: ${(props) => (props.isResponse ? "flex" : "none")};
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 48px;
+  color: ${({ theme }) => theme.dark};
+
+  @media ${device.mobileL} {
+    font-size: 32px;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 28px;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 24px;
   }
 `

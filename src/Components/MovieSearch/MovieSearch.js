@@ -7,6 +7,7 @@ import {
   InputYear,
   YearContainer,
   StyledForm,
+  NotFound,
 } from "./styles"
 
 const MovieSearch = ({
@@ -15,9 +16,11 @@ const MovieSearch = ({
   searchedMovie,
   onChangeYear,
   searchedYear,
+  pages,
+  isResponse,
 }) => {
   return (
-    <SearchContainer>
+    <SearchContainer pages={pages}>
       <StyledForm>
         <InputContainer condition={searchedMovie.length !== 0 ? 1 : 0}>
           <Input
@@ -40,6 +43,9 @@ const MovieSearch = ({
           Search
         </Submit>
       </StyledForm>
+      <NotFound isResponse={isResponse === "false"}>
+        Sorry. Movie not found
+      </NotFound>
     </SearchContainer>
   )
 }

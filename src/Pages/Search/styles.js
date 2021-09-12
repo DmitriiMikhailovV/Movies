@@ -14,8 +14,7 @@ export const MoviesContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  margin: 15px;
-  width: 90%;
+  margin: ${(props) => (props.pages ? "0" : "15px")};
 `
 
 export const NotFound = styled.div`
@@ -26,4 +25,16 @@ export const NotFound = styled.div`
   text-transform: uppercase;
   font-size: 48px;
   color: ${({ theme }) => theme.dark};
+
+  @media ${device.mobileL} {
+    font-size: 32px;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 28px;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 24px;
+  }
 `

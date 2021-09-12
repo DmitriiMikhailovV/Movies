@@ -90,9 +90,9 @@ const Search = () => {
       return (
         moviesData !== null &&
         moviesData.length > 0 &&
-        moviesData.map((item, index) => (
+        moviesData.map((item) => (
           <MovieCard
-            key={index}
+            key={item.imdbID}
             title={item.Title}
             src={item.Poster}
             year={item.Year}
@@ -109,6 +109,8 @@ const Search = () => {
   return (
     <PageContainer>
       <MovieSearch
+        pages={pages === null || isNaN(pages)}
+        isResponse={isResponse}
         onClick={(e) => getMovie(e)}
         onChangeMovie={(e) => dispatch(setUserInputMovie(e.target.value))}
         searchedMovie={userInputMovie}
@@ -126,7 +128,7 @@ const Search = () => {
           onChange={handleChange}
         />
       )}
-      <MoviesContainer>
+      <MoviesContainer pages={pages === null || isNaN(pages)}>
         {loading === true ? <CircularProgress /> : ConditionOfSearch()}
       </MoviesContainer>
     </PageContainer>

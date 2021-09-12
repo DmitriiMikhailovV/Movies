@@ -16,13 +16,10 @@ export const MovieCardContainer = styled.div`
   overflow: hidden;
   transition: 0.3s ease-in-out;
 
-  &:hover {
-    box-shadow: 0px 1px 10px 5px ${({ theme }) => theme.contrastGreen};
-  }
-
-  @media ${device.tablet} {
-    width: 225px;
-    height: 375px;
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0px 1px 10px 5px ${({ theme }) => theme.contrastGreen};
+    }
   }
 `
 
@@ -31,11 +28,6 @@ export const MoviePoster = styled.img`
   width: 300px;
   height: 500px;
   border-radius: 10px;
-
-  @media ${device.tablet} {
-    width: 225px;
-    height: 375px;
-  }
 `
 
 export const MovieInfo = styled.div`
@@ -46,12 +38,14 @@ export const MovieInfo = styled.div`
   transition: 0.3s ease-in-out;
   transform: translateY(100%);
 
-  ${MovieCardContainer}:hover & {
-    transform: translateY(0);
+  @media (hover: hover) {
+    ${MovieCardContainer}:hover & {
+      transform: translateY(0);
+    }
   }
 
   @media ${device.tablet} {
-    transition: 0.2s ease-in-out;
+    transform: translateY(0);
   }
 `
 

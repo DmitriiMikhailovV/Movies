@@ -6,14 +6,22 @@ export const MovieContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin: 0 300px;
+  margin: 0 10%;
   padding-top: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   height: calc(100vh - 140px);
 
+  @media ${device.laptop} {
+    height: auto;
+  }
+
   @media ${device.tablet} {
     width: 100%;
     border-radius: 0px;
+    margin: 0;
+    flex-direction: column;
+    box-shadow: none;
+    height: auto;
   }
 `
 
@@ -21,6 +29,10 @@ export const ImgContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media ${device.tablet} {
+    align-self: center;
+  }
 `
 
 // export const Button = styled.button`
@@ -54,6 +66,16 @@ export const Detail = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+
+  @media ${device.laptop} {
+    width: 60%;
+    height: auto;
+  }
+
+  @media ${device.tablet} {
+    width: 100%;
+    height: auto;
+  }
 `
 
 export const Title = styled.div`
@@ -83,11 +105,19 @@ export const About = styled.div`
   width: calc(100% - 20px);
   height: 100%;
   margin: 5px 10px;
+
+  @media ${device.tablet} {
+    height: auto;
+  }
 `
 
 export const Info = styled.div`
   width: 100%;
   text-align: justify;
+
+  @media ${device.tablet} {
+    width: 100%;
+  }
 `
 
 export const Actors = styled.div`
@@ -96,7 +126,11 @@ export const Actors = styled.div`
   justify-content: start;
   text-align: left;
   margin-left: 20px;
-  min-width: 250px;
+  min-width: 200px;
+
+  @media ${device.laptop} {
+    width: 40%;
+  }
 `
 
 export const StyledP = styled.p`
@@ -111,14 +145,17 @@ export const TitleInfo = styled.div`
 
 export const InfoDiv = styled.div`
   display: flex;
-  min-height: 40px;
+  margin: 15px 0;
 `
 
 export const InfoTitle = styled.div`
-  width: 150px;
+  width: 20%;
+  margin-right: 20px;
 `
 
-export const InfoValue = styled.div``
+export const InfoValue = styled.div`
+  width: 80%;
+`
 
 export const StyledLink = styled(Link)`
   height: 30px;

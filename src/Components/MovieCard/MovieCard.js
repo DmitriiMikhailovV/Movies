@@ -1,5 +1,4 @@
 import {
-  StyledLink,
   MovieCardContainer,
   MoviePoster,
   Text,
@@ -24,7 +23,10 @@ const MovieCard = ({ title, src, year, imdbID }) => {
         <Text size={"24px"}>{year}</Text>
         <RatingContainer>
           Rating:{" "}
-          <HoverRating size={window.innerWidth <= 768 ? "small" : "large"} />
+          <HoverRating
+            imdbID={imdbID}
+            size={window.innerWidth <= 768 ? "small" : "large"}
+          />
         </RatingContainer>
       </MovieInfo>
     </MovieCardContainer>

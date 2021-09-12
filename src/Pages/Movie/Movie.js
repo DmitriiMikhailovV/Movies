@@ -56,7 +56,10 @@ const Movie = () => {
         {/* <Button onClick={() => history.goBack()}>back to search</Button> */}
         <RatingContainer>
           Rating:{" "}
-          <HoverRating size={window.innerWidth <= 768 ? "small" : "large"} />
+          <HoverRating
+            imdbID={imdbID}
+            size={window.innerWidth <= 768 ? "small" : "large"}
+          />
         </RatingContainer>
       </ImgContainer>
       <Detail>

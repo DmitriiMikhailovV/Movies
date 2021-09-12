@@ -12,7 +12,8 @@ export const MovieContainer = styled.div`
   height: calc(100vh - 140px);
 
   @media ${device.laptop} {
-    height: auto;
+    border-radius: 0px;
+    height: calc(100vh - 100px);
   }
 
   @media ${device.tablet} {

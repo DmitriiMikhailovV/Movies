@@ -2,11 +2,11 @@ import GlobalStyles from "./GlobalStyles"
 import { ThemeProvider } from "styled-components"
 import { colors } from "./theme"
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
-import { useParams } from "react-router"
 
 import Header from "./Components/Header/Header"
 import Search from "./Pages/Search/Search"
 import Movie from "./Pages/Movie/Movie"
+import Ratings from "./Pages/Ratings/Ratings"
 
 const App = () => {
   return (
@@ -23,6 +23,9 @@ const App = () => {
         <Switch>
           <Route path="/movie/:imdbID" component={Movie} />
         </Switch>
+        <Route path="/ratings">
+          <Ratings />
+        </Route>
       </BrowserRouter>
     </ThemeProvider>
   )

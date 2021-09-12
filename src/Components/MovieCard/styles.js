@@ -1,6 +1,5 @@
 import styled from "styled-components/macro"
 import { device } from "../../MobileViewBreackpoints"
-import { Link } from "react-router-dom"
 
 export const MovieCardContainer = styled.div`
   display: flex;

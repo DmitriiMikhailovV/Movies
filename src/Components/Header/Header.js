@@ -17,7 +17,7 @@ const Header = () => {
         <Title>moovy</Title>
         <Motto>search your movie</Motto>
       </TitleContainer>
-      <StyledLink to={"/rating"}>MY RATING</StyledLink>
+      <StyledLink to={"/ratings"}>MY RATING</StyledLink>
     </HeaderContainer>
   )
 }

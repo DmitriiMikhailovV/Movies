@@ -13,11 +13,9 @@ export const HeaderContainer = styled.div`
   background-color: ${({ theme }) => theme.dark};
   box-shadow: 0 5px 5px ${({ theme }) => theme.dark};
   text-transform: uppercase;
-
   @media ${device.tablet} {
     height: 75px;
   }
-
   @media ${device.mobileL} {
     border-radius: 0;
   }
@@ -34,7 +32,6 @@ export const Title = styled.h1`
   font-size: 48px;
   font-weight: 700;
   color: ${({ theme }) => theme.contrastOrange};
-
   @media ${device.tablet} {
     font-size: 36px;
     font-weight: 600;
@@ -45,7 +42,6 @@ export const Motto = styled.h3`
   font-size: 16px;
   font-weight: 500;
   color: ${({ theme }) => theme.contrastOrange};
-
   @media ${device.tablet} {
     font-size: 12px;
   }
@@ -67,14 +63,12 @@ export const StyledLink = styled(Link)`
     4px 4px 6px 0 rgba(116, 125, 136, 0.2),
     inset 4px 4px 6px 0 rgba(255, 255, 255, 0.2),
     inset -4px -4px 6px 0 rgba(0, 0, 0, 0.2);
-
   @media (hover: hover) {
     &:hover {
       transition: background-color 0.3s ease-in-out;
       background-color: ${({ theme }) => theme.contrastGreen};
     }
   }
-
   &:active {
     transition: box-shadow 0.1s ease-in-out;
     box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3),
@@ -82,7 +76,6 @@ export const StyledLink = styled(Link)`
       inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
       inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
   }
-
   @media ${device.tablet} {
     width: 52px;
     margin: 0 15px;
@@ -97,7 +90,6 @@ export const Icon = styled(SearchIcon)`
       : ({ theme }) => theme.light};
   font-size: large;
   transition: 0.1s ease-in-out;
-
   @media ${device.tablet} {
     transition: 0.2s ease-in-out;
   }

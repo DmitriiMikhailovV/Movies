@@ -14,17 +14,17 @@ import {
   setPages,
 } from "../../Redux/action"
 
-import { PageContainer, MoviesContainer, NotFound } from "./styles"
+import { PageContainer, MoviesContainer, NotFound } from "../Search/styles"
 
 const Search = () => {
   const [loading, setLoading] = useState(false)
   const [isResponse, setIsResponse] = useState("")
   const dispatch = useDispatch()
-  const userInputMovie = useSelector((state) => state.search.userInputMovie)
-  const moviesData = useSelector((state) => state.search.moviesData)
-  const year = useSelector((state) => state.search.year)
-  const currentPage = useSelector((state) => state.search.currentPage)
-  const pages = useSelector((state) => state.search.pages)
+  const userInputMovie = useSelector((state) => state.store.userInputMovie)
+  const moviesData = useSelector((state) => state.store.moviesData)
+  const year = useSelector((state) => state.store.year)
+  const currentPage = useSelector((state) => state.store.currentPage)
+  const pages = useSelector((state) => state.store.pages)
 
   const API_KEY = "aab2bb61"
   const urlOfRequest = `http://www.omdbapi.com/?s=${userInputMovie}&apikey=${API_KEY}&page=${currentPage}&y=${year}&type=movie`

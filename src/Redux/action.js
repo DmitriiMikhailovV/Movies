@@ -15,3 +15,11 @@ export const setCurrentPage = (currentPage) => {
 export const setPages = (pages) => {
   return { type: "PAGES", pages }
 }
+
+export const addRatingOfMovie = (rating) => {
+  return { type: "ADD_RATING_OF_MOVIE", rating }
+}
+
+export const updateRatingOfMovie = (rating) => {
+  return { type: "UPDATE_RATING_OF_MOVIE", rating }
+}

@@ -43,7 +43,7 @@ const MovieSearch = ({
           Search
         </Submit>
       </StyledForm>
-      <NotFound isResponse={isResponse === "false"}>
+      <NotFound isResponse={isResponse === "false" && window.innerWidth < 768}>
         Sorry. Movie not found
       </NotFound>
     </SearchContainer>

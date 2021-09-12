@@ -3,7 +3,7 @@ import { Container } from "./styles"
 import { useSelector, useDispatch } from "react-redux"
 import { addRatingOfMovie, updateRatingOfMovie } from "../../Redux/action"
 
-const HoverRating = ({ imdbID, size }) => {
+const HoverRating = ({ imdbID, size, genre }) => {
   const dispatch = useDispatch()
   const obj = useSelector((state) =>
     // eslint-disable-next-line array-callback-return
@@ -28,9 +28,19 @@ const HoverRating = ({ imdbID, size }) => {
         precision={1}
         onChange={(event, newValue) => {
           obj === undefined
-            ? dispatch(addRatingOfMovie({ imdbID: imdbID, rating: newValue }))
+            ? dispatch(
+                addRatingOfMovie({
+                  imdbID: imdbID,
+                  rating: newValue,
+                  genre: genre,
+                })
+              )
             : dispatch(
-                updateRatingOfMovie({ imdbID: imdbID, rating: newValue })
+                updateRatingOfMovie({
+                  imdbID: imdbID,
+                  rating: newValue,
+                  genre: genre,
+                })
               )
         }}
       />

@@ -12,8 +12,12 @@ import {
 import { useState, useEffect } from "react"
 import Rating from "@material-ui/lab/Rating"
 
-const RatingCard = ({ imdbID, rating }) => {
+import { addGeners } from "../../Redux/action"
+import { useDispatch } from "react-redux"
+
+const RatingCard = ({ imdbID, rating, genre }) => {
   const [data, setData] = useState("")
+  const dispatch = useDispatch()
   const API_KEY = "aab2bb61"
   const urlOfRequest = `http://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`
 
@@ -24,6 +28,8 @@ const RatingCard = ({ imdbID, rating }) => {
       })
       .then((data) => {
         setData(data)
+        const arr = data.Genre.split(", ")
+        dispatch(addGeners(arr))
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -44,7 +50,7 @@ const RatingCard = ({ imdbID, rating }) => {
         </InfoDiv>
         <InfoDiv>
           <InfoTitle>Genre: </InfoTitle>
-          <InfoValue>{data.Genre}</InfoValue>
+          <InfoValue>{genre}</InfoValue>
         </InfoDiv>
         <InfoRating>
           <InfoTitle rating={true}>My Rating: </InfoTitle>

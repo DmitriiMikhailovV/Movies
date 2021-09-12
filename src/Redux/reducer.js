@@ -9,12 +9,17 @@ const initialState = {
   pages: null,
   // ratings: [],
   ratings: [
-    { imdbID: "tt2446980", rating: 5 },
-    { imdbID: "tt0206314", rating: 4 },
-    { imdbID: "tt0107282", rating: 3 },
-    { imdbID: "tt1140941", rating: 2 },
-    { imdbID: "tt0468526", rating: 1 },
+    { imdbID: "tt2446980", rating: 5, genre: "Biography, Drama" },
+    { imdbID: "tt0206314", rating: 4, genre: "Action, Mystery, Thriller" },
+    { imdbID: "tt0107282", rating: 3, genre: "Drama" },
+    {
+      imdbID: "tt1140941",
+      rating: 2,
+      genre: "Crime, Horror, Romance, Thriller",
+    },
+    { imdbID: "tt0468526", rating: 1, genre: "Drama" },
   ],
+  generes: ["none"],
 }
 
 const store = (state = initialState, action) => {
@@ -38,6 +43,8 @@ const store = (state = initialState, action) => {
           movie.imdbID === action.rating.imdbID ? action.rating : movie
         ),
       }
+    case "ADD_GENERS":
+      return { ...state, generes: [...new Set(state.generes), ...action.gener] }
 
     default:
       return state

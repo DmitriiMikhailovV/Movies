@@ -23,3 +23,7 @@ export const addRatingOfMovie = (rating) => {
 export const updateRatingOfMovie = (rating) => {
   return { type: "UPDATE_RATING_OF_MOVIE", rating }
 }
+
+export const addGeners = (gener) => {
+  return { type: "ADD_GENERS", gener }
+}

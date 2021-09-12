@@ -3,7 +3,7 @@ import { device } from "../../MobileViewBreackpoints"
 
 export const PageContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   margin: 0 10%;

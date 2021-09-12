@@ -58,6 +58,7 @@ const Movie = () => {
           Rating:{" "}
           <HoverRating
             imdbID={imdbID}
+            genre={data.Genre}
             size={window.innerWidth <= 768 ? "small" : "large"}
           />
         </RatingContainer>

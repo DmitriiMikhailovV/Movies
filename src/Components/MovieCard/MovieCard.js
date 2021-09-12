@@ -1,41 +1,31 @@
-import { MovieCardContainer, MoviePoster, Text, MovieInfo } from "./styles"
-import Modal from "../Modal/Modal"
+import {
+  StyledLink,
+  MovieCardContainer,
+  MoviePoster,
+  Text,
+  MovieInfo,
+  RatingContainer,
+} from "./styles"
+import { useHistory } from "react-router-dom"
 
-import { useState, useEffect } from "react"
+import HoverRating from "../HoverRating/HoverRating"
 
 const MovieCard = ({ title, src, year, imdbID }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [detail, setDetail] = useState("")
-
-  const API_KEY = "aab2bb61"
-  const urlOfRequest = `http://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`
-
-  const changeStateModal = (e) => {
-    e.preventDefault()
-    setIsModalOpen(!isModalOpen)
-  }
-
-  useEffect(() => {
-    fetch(urlOfRequest)
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        setDetail(data)
-      })
-  }, [])
-
+  const history = useHistory()
   return (
-    <MovieCardContainer onClick={(e) => changeStateModal(e)}>
-      <Modal
-        isModalOpen={isModalOpen}
-        onClick={(e) => changeStateModal(e)}
-        details={detail}
+    <MovieCardContainer>
+      <MoviePoster
+        src={src}
+        alt={title}
+        onClick={() => history.push(`/movie/${imdbID}`)}
       />
-      <MoviePoster src={src} alt={title} />
       <MovieInfo>
         <Text>{title}</Text>
         <Text size={"24px"}>{year}</Text>
+        <RatingContainer>
+          Rating:{" "}
+          <HoverRating size={window.innerWidth <= 768 ? "small" : "large"} />
+        </RatingContainer>
       </MovieInfo>
     </MovieCardContainer>
   )

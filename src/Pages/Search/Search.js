@@ -9,12 +9,26 @@ import { useState, useEffect } from "react"
 import { PageContainer, MoviesContainer, NotFound } from "./styles"
 
 const Search = () => {
-  const [movies, setMovies] = useState(null)
+  const initializeUserInput = () => {
+    return JSON.parse(localStorage.getItem("userInput")) ?? ""
+  }
+
+  const initializeMovies = () => {
+    return JSON.parse(localStorage.getItem("movies")) ?? null
+  }
+
+  const initializeCurrentPage = () => {
+    return JSON.parse(localStorage.getItem("currentPage")) ?? 1
+  }
+
+  // const [movies, setMovies] = useState(null)
+  const [movies, setMovies] = useState(initializeMovies())
   const [loading, setLoading] = useState(false)
   const [isResponse, setIsResponse] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(initializeCurrentPage())
   const [pages, setPages] = useState(null)
-  const [userInput, setUserInput] = useState("")
+  const [userInput, setUserInput] = useState(initializeUserInput())
+  // const [userInput, setUserInput] = useState("")
   const [year, setYear] = useState("")
 
   const API_KEY = "aab2bb61"
@@ -26,9 +40,7 @@ const Search = () => {
     if (e) {
       e.preventDefault()
     }
-    if (pages === null || isNaN(pages)) {
-      getPage()
-    }
+    getPage()
     fetch(urlOfRequest)
       .then((res) => {
         return res.json()
@@ -69,12 +81,26 @@ const Search = () => {
     if (userInput.length !== 0) {
       getMovie()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage])
+
+  useEffect(() => {
+    localStorage.setItem("movies", JSON.stringify(movies))
+  }, [movies])
+
+  useEffect(() => {
+    localStorage.setItem("userInput", JSON.stringify(userInput))
+  }, [userInput])
+
+  useEffect(() => {
+    localStorage.setItem("currentPage", JSON.stringify(currentPage))
   }, [currentPage])
 
   useEffect(() => {
     setPages(null)
     setCurrentPage(1)
-  }, [userInput.length === 0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInput.length || initializeUserInput().length === 0])
 
   const ConditionOfSearch = () => {
     if (isResponse === "true") {
@@ -105,6 +131,7 @@ const Search = () => {
         searchedMovie={userInput}
         onChangeYear={(e) => setYear(e.target.value)}
         searchedYear={year}
+        value={userInput}
       />
       {pages === null || isNaN(pages) ? (
         <></>
@@ -112,12 +139,13 @@ const Search = () => {
         <Pagination
           count={pages}
           page={currentPage}
-          size={"large"}
+          size={window.innerWidth <= 768 ? "medium" : "large"}
           onChange={handleChange}
         />
       )}
       <MoviesContainer>
         {loading === true ? <CircularProgress /> : ConditionOfSearch()}
+        {ConditionOfSearch()}
       </MoviesContainer>
     </PageContainer>
   )

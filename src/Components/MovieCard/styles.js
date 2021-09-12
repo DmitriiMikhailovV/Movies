@@ -1,4 +1,6 @@
 import styled from "styled-components/macro"
+import { device } from "../../MobileViewBreackpoints"
+import { Link } from "react-router-dom"
 
 export const MovieCardContainer = styled.div`
   display: flex;
@@ -13,11 +15,14 @@ export const MovieCardContainer = styled.div`
   height: 500px;
   overflow: hidden;
   transition: 0.3s ease-in-out;
-  /* background: url(${(props) => props.src}) no-repeat center center;
-  background-size: cover; */
 
   &:hover {
     box-shadow: 0px 1px 10px 5px ${({ theme }) => theme.contrastGreen};
+  }
+
+  @media ${device.tablet} {
+    width: 225px;
+    height: 375px;
   }
 `
 
@@ -25,11 +30,17 @@ export const MoviePoster = styled.img`
   position: absolute;
   width: 300px;
   height: 500px;
+  border-radius: 10px;
+
+  @media ${device.tablet} {
+    width: 225px;
+    height: 375px;
+  }
 `
 
 export const MovieInfo = styled.div`
   z-index: 2;
-  background: ${({ theme }) => theme.dark};
+  background: ${({ theme }) => theme.contrastOrange};
   width: 100%;
   position: relative;
   transition: 0.3s ease-in-out;
@@ -38,6 +49,10 @@ export const MovieInfo = styled.div`
   ${MovieCardContainer}:hover & {
     transform: translateY(0);
   }
+
+  @media ${device.tablet} {
+    transition: 0.2s ease-in-out;
+  }
 `
 
 export const Text = styled.h2`
@@ -45,5 +60,23 @@ export const Text = styled.h2`
   text-align: center;
   margin: 5px 0;
   font-weight: 500;
-  color: ${({ theme }) => theme.light};
+  color: ${({ theme }) => theme.dark};
+
+  @media ${device.tablet} {
+    font-size: ${(props) => (props.size ? "18px" : "24px")};
+    font-weight: 400;
+  }
+`
+
+export const RatingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  color: ${({ theme }) => theme.dark};
+  margin: 20px 0 5px 0;
+  font-size: 22px;
+
+  @media ${device.tablet} {
+    margin: 10px 0 5px 0;
+    font-size: 16px;
+  }
 `

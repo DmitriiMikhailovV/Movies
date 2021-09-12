@@ -24,6 +24,7 @@ const MovieSearch = ({
             condition={searchedMovie.length !== 0 ? 1 : 0}
             placeholder={"Search Movie..."}
             onChange={onChangeMovie}
+            value={searchedMovie}
           />
           <Icon condition={searchedMovie.length !== 0 ? 1 : 0} />
         </InputContainer>

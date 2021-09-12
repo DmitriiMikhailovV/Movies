@@ -1,4 +1,5 @@
 import styled from "styled-components/macro"
+import { device } from "../../MobileViewBreackpoints"
 
 export const PageContainer = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ export const MoviesContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  margin: 20px;
+  margin: 15px;
   width: 90%;
 `
 

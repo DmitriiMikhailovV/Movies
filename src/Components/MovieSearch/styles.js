@@ -1,5 +1,6 @@
 import styled from "styled-components/macro"
 import SearchIcon from "@material-ui/icons/Search"
+import { device } from "../../MobileViewBreackpoints"
 
 export const SearchContainer = styled.div`
   display: flex;
@@ -8,10 +9,15 @@ export const SearchContainer = styled.div`
   align-items: center;
   width: 500px;
   height: 220px;
-  margin: 30px 0;
+  margin: 15px 0;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.contrastOrange};
   box-shadow: 0px 1px 10px 1px ${({ theme }) => theme.dark};
+
+  @media ${device.tablet} {
+    width: 375px;
+    height: 165px;
+  }
 `
 
 export const StyledForm = styled.form`
@@ -45,6 +51,19 @@ export const InputContainer = styled.div`
     width: 400px;
     background: ${({ theme }) => theme.light};
   }
+
+  @media ${device.tablet} {
+    height: 22px;
+    border-radius: 22px;
+    padding: 7px 15px;
+    margin: 7px 0;
+    width: ${(props) => (props.condition === 1 ? "300px" : "0px")};
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      width: 300px;
+    }
+  }
 `
 
 export const Icon = styled(SearchIcon)`
@@ -53,10 +72,14 @@ export const Icon = styled(SearchIcon)`
       ? ({ theme }) => theme.contrastOrange
       : ({ theme }) => theme.light};
   font-size: large;
-  transition: 0.3s ease-in-out;
+  transition: 0.1s ease-in-out;
 
   ${InputContainer}:hover & {
     color: ${({ theme }) => theme.contrastOrange};
+  }
+
+  @media ${device.tablet} {
+    transition: 0.2s ease-in-out;
   }
 `
 
@@ -78,12 +101,22 @@ export const Input = styled.input`
     color: ${({ theme }) => theme.dark};
     opacity: 0.6;
   }
+
+  @media ${device.tablet} {
+    font-weight: 600;
+    font-size: 18px;
+    height: 75px;
+    transition: 0.2s ease-in-out;
+
+    ${InputContainer}:hover & {
+      width: 300px;
+    }
+  }
 `
 
 export const Submit = styled.button`
   font-size: 26px;
   width: 125px;
-  /* height: px; */
   padding: 9px 0;
   margin: 10px 0;
   border-radius: 30px;
@@ -110,21 +143,49 @@ export const Submit = styled.button`
       inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
       inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
   }
+
+  @media ${device.tablet} {
+    font-size: 18px;
+    width: 95px;
+    padding: 7px 0;
+    margin: 8px 0;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+    transition: box-shadow 0.1s ease-in-out;
+  }
 `
 
 export const YearContainer = styled(InputContainer)`
   width: 80px;
-
   padding: 10px 20px;
+
   &:hover {
     width: 80px;
     background: ${({ theme }) => theme.light};
+  }
+
+  @media ${device.tablet} {
+    width: 60px;
+    padding: 7px 15px;
+
+    &:hover {
+      width: 60px;
+    }
   }
 `
 
 export const InputYear = styled(Input)`
   width: 80px;
+
   ${YearContainer}:hover & {
     width: 80px;
+  }
+
+  @media ${device.tablet} {
+    width: 60px;
+
+    ${YearContainer}:hover & {
+      width: 60px;
+    }
   }
 `

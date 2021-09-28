@@ -3,6 +3,7 @@ import styled from "styled-components/macro"
 export const StyledContainer = styled.div`
   width: 100%;
   height: 80px;
+  margin: 10px 0;
 `
 
 export const StyledSortConditions = styled.div`

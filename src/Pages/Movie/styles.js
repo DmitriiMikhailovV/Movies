@@ -18,9 +18,11 @@ export const MovieContainer = styled.div`
 
   @media ${device.tablet} {
     width: 100%;
+    min-height: calc(100vh - 75px);
     border-radius: 0px;
     margin: 0;
     flex-direction: column;
+    align-items: center;
     box-shadow: none;
     height: auto;
   }

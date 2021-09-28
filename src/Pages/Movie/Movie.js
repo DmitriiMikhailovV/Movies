@@ -19,42 +19,39 @@ import {
 } from "./styles"
 import { RatingContainer } from "../../Components/MovieCard/styles"
 import HoverRating from "../../Components/HoverRating/HoverRating"
-import { useState, useEffect } from "react"
+import { CircularProgress } from "@material-ui/core"
+
+import useFetch from "./../../useFetch"
 
 const Movie = () => {
   const { imdbID } = useParams()
-  const [data, setData] = useState("")
 
-  const API_KEY = "aab2bb61"
-  const urlOfRequest = `http://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`
+  const { response: movie, error } = useFetch(
+    `http://www.omdbapi.com/?i=${imdbID}`
+  )
 
-  useEffect(() => {
-    fetch(urlOfRequest)
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        setData(data)
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  if (error) return console.log(error)
 
-  const actorsArray = data ? data.Actors.split(", ") : ""
-  const actors = data
+  const actorsArray = movie.data ? movie.data.Actors.split(", ") : ""
+  const actors = movie.data
     ? actorsArray.map((item) => <StyledP key={item}>{item}</StyledP>)
     : ""
 
-  return (
+  return movie.loading ? (
+    <MovieContainer>
+      <CircularProgress />
+    </MovieContainer>
+  ) : (
     <MovieContainer>
       <ImgContainer>
-        <Poster src={data.Poster} />
+        <Poster src={movie.data ? movie.data.Poster : ""} />
 
         <StyledLink to={"/search"}>back to search</StyledLink>
         <RatingContainer>
           Rating:{" "}
           <HoverRating
             imdbID={imdbID}
-            genre={data.Genre}
+            genre={movie.data ? movie.data.Genre : ""}
             size={window.innerWidth <= 768 ? "small" : "large"}
           />
         </RatingContainer>
@@ -62,43 +59,45 @@ const Movie = () => {
       <Detail>
         <Title>
           <TextTitle>
-            {data.Title} ({data.Year})
+            {movie.data ? movie.data.Title : ""} (
+            {movie.data ? movie.data.Year : ""})
           </TextTitle>
         </Title>
         <Description>
           <SectionTitle>DESCRIPTION: </SectionTitle>
-          {data.Plot}
+          {movie.data ? movie.data.Plot : ""}
         </Description>
         <About>
           <SectionTitle>INFO: </SectionTitle>
           <Info>
             <InfoDiv>
               <InfoTitle>Year:</InfoTitle>
-              <InfoValue>{data.Year}</InfoValue>
+              <InfoValue>{movie.data ? movie.data.Year : ""}</InfoValue>
             </InfoDiv>
             <InfoDiv>
               <InfoTitle>Country:</InfoTitle>
-              <InfoValue>{data.Country}</InfoValue>
+              <InfoValue>{movie.data ? movie.data.Country : ""}</InfoValue>
             </InfoDiv>
             <InfoDiv>
               <InfoTitle>Genre:</InfoTitle>
-              <InfoValue>{data.Genre}</InfoValue>
+              <InfoValue>{movie.data ? movie.data.Genre : ""}</InfoValue>
             </InfoDiv>
             <InfoDiv>
               <InfoTitle>Director:</InfoTitle>
-              <InfoValue>{data.Director}</InfoValue>
+              <InfoValue>{movie.data ? movie.data.Director : ""}</InfoValue>
             </InfoDiv>
+            response
             <InfoDiv>
               <InfoTitle>Writer:</InfoTitle>
-              <InfoValue>{data.Writer}</InfoValue>
+              <InfoValue>{movie.data ? movie.data.Writer : ""}</InfoValue>
             </InfoDiv>
             <InfoDiv>
               <InfoTitle>Released:</InfoTitle>
-              <InfoValue>{data.Released}</InfoValue>
+              <InfoValue>{movie.data ? movie.data.Released : ""}</InfoValue>
             </InfoDiv>
             <InfoDiv>
               <InfoTitle>Runtime:</InfoTitle>
-              <InfoValue>{data.Runtime}</InfoValue>
+              <InfoValue>{movie.data ? movie.data.Runtime : ""}</InfoValue>
             </InfoDiv>
           </Info>
         </About>

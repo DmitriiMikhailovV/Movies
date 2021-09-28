@@ -32,7 +32,10 @@ const store = (state = initialState, action) => {
         ),
       }
     case "ADD_GENERS":
-      return { ...state, generes: [...new Set(state.generes), ...action.gener] }
+      return {
+        ...state,
+        generes: [...new Set([...state.generes, ...action.gener])],
+      }
 
     default:
       return state

@@ -2,9 +2,11 @@ import styled from "styled-components/macro"
 import { device } from "../../MobileViewBreackpoints"
 
 export const RatingCardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 300px;
-  display: flex;
   margin: 20px 0;
 
   @media ${device.mobileM} {

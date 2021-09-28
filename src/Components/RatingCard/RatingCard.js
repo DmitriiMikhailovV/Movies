@@ -9,44 +9,50 @@ import {
   InfoRating,
 } from "./styles"
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
+import useFetch from "../../useFetch"
 import Rating from "@material-ui/lab/Rating"
+import { CircularProgress } from "@material-ui/core"
 
 import { addGeners } from "../../Redux/action"
 import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 
 const RatingCard = ({ imdbID, rating, genre }) => {
-  const [data, setData] = useState("")
   const dispatch = useDispatch()
-  const API_KEY = "aab2bb61"
-  const urlOfRequest = `http://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`
+  const generes = useSelector((state) => state.store.generes)
+
+  const { response: movie, error } = useFetch(
+    `http://www.omdbapi.com/?i=${imdbID}`
+  )
 
   useEffect(() => {
-    fetch(urlOfRequest)
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        setData(data)
-        const arr = data.Genre.split(", ")
-        dispatch(addGeners(arr))
-      })
+    let arr = null
+    movie.data ? (arr = movie.data.Genre.split(", ")) : (arr = "")
+    console.log(generes)
+    dispatch(addGeners(arr))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [movie])
 
-  return (
+  if (error) return console.log(error)
+
+  return movie.loading ? (
+    <RatingCardContainer>
+      <CircularProgress />
+    </RatingCardContainer>
+  ) : (
     <RatingCardContainer>
       <ImgContainer>
-        <Poster src={data.Poster} />
+        <Poster src={movie.data ? movie.data.Poster : ""} />
       </ImgContainer>
       <Detail>
         <InfoDiv>
           <InfoTitle>Title: </InfoTitle>
-          <InfoValue>{data.Title}</InfoValue>
+          <InfoValue>{movie.data ? movie.data.Title : ""}</InfoValue>
         </InfoDiv>
         <InfoDiv>
           <InfoTitle>Year: </InfoTitle>
-          <InfoValue>{data.Year}</InfoValue>
+          <InfoValue>{movie.data ? movie.data.Year : ""}</InfoValue>
         </InfoDiv>
         <InfoDiv>
           <InfoTitle>Genre: </InfoTitle>

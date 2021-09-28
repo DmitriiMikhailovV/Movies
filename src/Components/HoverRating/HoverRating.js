@@ -7,17 +7,17 @@ const HoverRating = ({ imdbID, size, genre }) => {
   const dispatch = useDispatch()
   const obj = useSelector((state) =>
     // eslint-disable-next-line array-callback-return
-    state.store.ratings.find((movie) => {
-      if (movie.imdbID === imdbID) return true
-    })
+    state.store.ratings.find((movie) => movie.imdbID === imdbID)
   )
-  const rating = () => {
-    if (obj === undefined) {
-      return null
-    } else {
-      return obj.rating
-    }
-  }
+  // const rating = () => {
+  //   if (obj === undefined) {
+  //     return null
+  //   } else {
+  //     return obj.rating
+  //   }
+  // }
+
+  const rating = () => (obj === undefined ? null : obj.rating)
 
   return (
     <Container>

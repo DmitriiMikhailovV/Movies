@@ -16,6 +16,8 @@ import {
   setPages,
 } from "../../Redux/action"
 
+import { API_KEY } from "../../config"
+
 import { PageContainer, MoviesContainer, NotFound } from "../Search/styles"
 
 const Search = () => {
@@ -23,6 +25,10 @@ const Search = () => {
   const [isResponse, setIsResponse] = useState("")
   const dispatch = useDispatch()
   const userInputMovie = useSelector((state) => state.store.userInputMovie)
+  const [userInput, setUserInput] = useState(
+    userInputMovie ? userInputMovie : ""
+  )
+  const [error, setError] = useState("")
   const moviesData = useSelector((state) => state.store.moviesData)
   const year = useSelector((state) => state.store.year)
   const currentPage = useSelector((state) => state.store.currentPage)
@@ -30,67 +36,43 @@ const Search = () => {
 
   const history = useHistory()
 
-  const API_KEY = "aab2bb61"
-  const urlOfRequest = `http://www.omdbapi.com/?s=${userInputMovie}&apikey=${API_KEY}&page=${currentPage}&y=${year}&type=movie`
-
-  const getMovie = (e) => {
-    setLoading(true)
-    dispatch(setMoviesData(null))
-    if (e) {
-      e.preventDefault()
+  const fetchData = () => {
+    if (userInput.length !== 0) {
+      setLoading(true)
+      dispatch(setMoviesData(null))
+      fetch(
+        `http://www.omdbapi.com/?s=${userInput}&apikey=${API_KEY}&page=${currentPage}&y=${year}&type=movie`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          const amauntResultMovies = result.totalResults
+          const amountPages = Math.ceil(Number(amauntResultMovies) / 10)
+          dispatch(setPages(amountPages))
+          setIsResponse(result.Response)
+          result.Response === "True"
+            ? dispatch(setMoviesData(result.Search))
+            : setError(result.Error)
+          setLoading(false)
+        })
     }
-    getPage()
-    fetch(urlOfRequest)
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        if (data.Response === "False") {
-          console.log(data.Error)
-          setIsResponse("false")
-          setLoading(false)
-        } else {
-          dispatch(setMoviesData(data.Search))
-          setLoading(false)
-          setIsResponse("true")
-        }
-      })
-      .catch(({ message }) => {
-        console.log(message)
-      })
   }
 
-  const getPage = () => {
-    fetch(urlOfRequest)
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        const amauntResultMovies = data.totalResults
-        const amountPages = Math.ceil(Number(amauntResultMovies) / 10)
-        dispatch(setPages(amountPages))
-      })
-  }
+  useEffect(() => {
+    fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage])
 
   const handleChange = (e, value) => {
     dispatch(setCurrentPage(value))
   }
 
   useEffect(() => {
-    if (userInputMovie.length !== 0) {
-      getMovie()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage])
-
-  useEffect(() => {
     dispatch(setPages(null))
-    dispatch(setCurrentPage(1))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInputMovie.length])
+  }, [userInput])
 
   const ConditionOfSearch = () => {
-    if (isResponse === "true") {
+    if (isResponse === "True") {
       return (
         moviesData !== null &&
         moviesData.length > 0 &&
@@ -106,7 +88,8 @@ const Search = () => {
         ))
       )
     }
-    if (isResponse === "false") {
+    if (isResponse === "False") {
+      console.log(error)
       return <NotFound>Sorry. Movie not found</NotFound>
     }
   }
@@ -116,12 +99,18 @@ const Search = () => {
       <MovieSearch
         pages={pages === null || isNaN(pages)}
         isResponse={isResponse}
-        onClick={(e) => getMovie(e)}
-        onChangeMovie={(e) => dispatch(setUserInputMovie(e.target.value))}
-        searchedMovie={userInputMovie}
+        onClick={(e) => {
+          e.preventDefault()
+          dispatch(setCurrentPage(1))
+          dispatch(setUserInputMovie(userInput))
+          fetchData()
+        }}
+        onChangeMovie={(e) => setUserInput(e.target.value)}
+        searchedMovie={userInput}
         onChangeYear={(e) => dispatch(setYear(e.target.value))}
         searchedYear={year}
-        value={userInputMovie}
+        value={userInput}
+        loading={loading}
       />
       {pages === null || isNaN(pages) ? (
         <></>
@@ -134,7 +123,7 @@ const Search = () => {
         />
       )}
       <MoviesContainer pages={pages === null || isNaN(pages)}>
-        {loading === true ? <CircularProgress /> : ConditionOfSearch()}
+        {loading ? <CircularProgress /> : ConditionOfSearch()}
       </MoviesContainer>
     </PageContainer>
   )

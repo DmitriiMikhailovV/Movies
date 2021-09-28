@@ -9,6 +9,7 @@ import {
   StyledForm,
   NotFound,
 } from "./styles"
+import { CircularProgress } from "@material-ui/core"
 
 const MovieSearch = ({
   onChangeMovie,
@@ -18,6 +19,7 @@ const MovieSearch = ({
   searchedYear,
   pages,
   isResponse,
+  loading,
 }) => {
   return (
     <SearchContainer pages={pages}>
@@ -43,9 +45,10 @@ const MovieSearch = ({
           Search
         </Submit>
       </StyledForm>
-      <NotFound isResponse={isResponse === "false" && window.innerWidth < 768}>
+      <NotFound isResponse={isResponse === "False" && window.innerWidth < 768}>
         Sorry. Movie not found
       </NotFound>
+      {loading && window.innerWidth <= 768 ? <CircularProgress /> : ""}
     </SearchContainer>
   )
 }

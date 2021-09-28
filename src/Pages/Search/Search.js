@@ -123,7 +123,11 @@ const Search = () => {
         />
       )}
       <MoviesContainer pages={pages === null || isNaN(pages)}>
-        {loading ? <CircularProgress /> : ConditionOfSearch()}
+        {loading && window.innerWidth > 768 ? (
+          <CircularProgress />
+        ) : (
+          ConditionOfSearch()
+        )}
       </MoviesContainer>
     </PageContainer>
   )

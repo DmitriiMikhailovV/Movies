@@ -38,6 +38,7 @@ const MovieSearch = ({
             condition={searchedYear.length !== 0 ? 1 : 0}
             placeholder={"Year..."}
             onChange={onChangeYear}
+            value={searchedYear}
           />
           <Icon condition={searchedYear.length !== 0 ? 1 : 0} />
         </YearContainer>
